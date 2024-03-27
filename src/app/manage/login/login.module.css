@@ -1,0 +1,7 @@
+.loginWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    row-gap: 1em;
+}

@@ -1,0 +1,29 @@
+.fadeIn {
+    /* opacity: 0.1;
+    transition: opacity ease-in 0.35s; */
+    /* animation: fadeInAnimation ease-in 0.35s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards; */
+}
+
+.fadeIn::after {
+    /* opacity: 1; */
+}
+
+/* @keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.75;
+    }
+
+    75% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 1;
+    }
+} */
