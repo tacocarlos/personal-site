@@ -1,4 +1,3 @@
-import WebsiteHeader from "@/app/common-components/header/header";
 // import { HashMatrix } from "./hashmatrix";
 
 export default function MatrixOperators() {
@@ -10,8 +9,7 @@ export default function MatrixOperators() {
     // const matrixContent = mat.toComponent();
     return (
         <div>
-            <WebsiteHeader />
-            {/* {matrixContent} */}
+            Matrix Operators
         </div>
     )
 }
