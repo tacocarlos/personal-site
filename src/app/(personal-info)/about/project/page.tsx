@@ -1,28 +1,20 @@
 'use client'
 
-import { ProjectTag } from "@/app/types/Tag";
 import { Project } from "@/data/Project";
+import db from "@/lib/db";
 import { useRouter, useSearchParams } from "next/navigation"
-import { NextRequest } from "next/server";
 import { Suspense, useEffect, useState } from "react";
 
-async function getProject(projectID: string): Promise<Project> {
-    // const req = new NextRequest("/api/projects", {method: 'GET'});
-    // req.cookies.set('project', projectID);
+async function getProject(projectID: string) {
+    const project = await db.project.findUnique({
+        where: {
+            id: projectID,
+            visible: true
+        }
+    });
 
-    // const res = await fetch(req);
-    // const data = await res.json();
-    // const project = data['project'] as Project;
-
-    // if(project === undefined) {
-    //     return Promise.reject();
-    // }
-
-    const project: Project = {
-        id: "1",
-        name: "Some Project",
-        tags: [ProjectTag.CPP],
-        summary: "A summary"
+    if(project === null) {
+        return Promise.reject();
     }
 
     return Promise.resolve(project);
