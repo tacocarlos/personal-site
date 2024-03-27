@@ -1,6 +1,5 @@
 // import { MathFunction } from "../polynomial/mathfunction";
-
-import { MathFunction } from "@/app/numerical/polynomial/mathfunction";
+import { MathFunction } from "../polynomial/mathfunction";
 
 export interface Matrix {         
     validIndex(i :number, j: number) : Boolean;
