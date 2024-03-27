@@ -17,7 +17,6 @@ export default function ProjectElement({project}: {project: Project}) {
     function handleClick() {
         const params = new URLSearchParams({ project: project.id});
         const url = "/about/project" + '?' + params.toString();
-        console.log(url);
         router.push(url);
     }
 

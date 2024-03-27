@@ -1,9 +1,9 @@
 'use client'
 
 import { Project } from "@/data/Project";
-import { redirect, useRouter, useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { NextRequest } from "next/server";
-import { useEffect, useState, useTransition } from "react";
+import { Suspense, useEffect, useState, useTransition } from "react";
 
 async function getProject(projectID: string): Promise<Project> {
     const req = new NextRequest("/api/projects", {method: 'GET'});
@@ -21,6 +21,12 @@ async function getProject(projectID: string): Promise<Project> {
 }
 
 export default function ProjectPage() {
+    return <Suspense>
+        <PageComponent/>
+    </Suspense>
+}
+
+function PageComponent() {
     const searchParams = useSearchParams();
     const projectId = searchParams.get('project');
     const [project, setProject] = useState<Project | undefined>(undefined);
@@ -50,5 +56,5 @@ export default function ProjectPage() {
         <h1 className='text-lg'>
             {project.name}
         </h1>
-    </main>
+    </main>    
 }
