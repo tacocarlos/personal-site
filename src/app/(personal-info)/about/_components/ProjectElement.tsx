@@ -9,8 +9,8 @@ export default function ProjectElement({project}: {project: Project}) {
     const params = useSearchParams();
 
     const projectTagContent = project.tags.map(tag => 
-        <div key={tag.tagID} className={styles.projectTag}>
-            {tag.tag}
+        <div key={tag} className={styles.projectTag}>
+            {tag}
         </div>
     )
 

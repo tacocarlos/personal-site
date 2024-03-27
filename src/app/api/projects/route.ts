@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 export const dynamic = 'force-dynamic';
 
 const knownProjects = [
-    createProject("Test Title #1", [ProjectTag.CPP, ProjectTag.CSharp], "This is a bit more detailed summary", `# Header 1`, 'project1'),
+    createProject("Test Title #1", [ProjectTag.CSharp], "This is a bit more detailed summary", `# Header 1`, 'project1'),
     createProject("Test Title #2", [ProjectTag.CPP, ProjectTag.JavaScript], "This is a summary 2", `# Header 2`),
     createProject("Test Title #3", [ProjectTag.CPP, ProjectTag.Python2], "This is a summary 3", `# Header 3`),
     createProject("Test Title #4", [ProjectTag.TypeScript], "This is a summary 4", `# Header 4`),
