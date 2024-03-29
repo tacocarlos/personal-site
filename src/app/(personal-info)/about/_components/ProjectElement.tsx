@@ -1,8 +1,18 @@
 'use client';
 
-import { Project } from "@/data/Project";
 import styles from "../ProjectDescription.module.css";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+
+import { 
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle
+} from "@/components/ui/card";
+
+import { Badge } from "@/components/ui/badge";
 
 
 type ProjectProps = {
@@ -18,13 +28,6 @@ type ProjectProps = {
 
 export default function ProjectElement({id, name, tags, summary, description, createdAt, updatedAt, visible}: ProjectProps) {
     const router = useRouter();
-    const params = useSearchParams();
-
-    const projectTagContent = tags.map(tag => 
-        <div key={tag} className={styles.projectTag}>
-            {tag}
-        </div>
-    )
 
     function handleClick() {
         const params = new URLSearchParams({ project: id});
@@ -32,17 +35,31 @@ export default function ProjectElement({id, name, tags, summary, description, cr
         router.push(url);
     }
 
-    return <li className={styles.projectDescriptionBox} >
-        <h1 className={styles.projectTitle} onClick={handleClick}>
-            {name}
-        </h1>
-
-        <div className={styles.projectTagBox}>
-            {projectTagContent}
-        </div>
-
-        <p className={styles.projectDescription}>
+    return <Card>
+        <CardHeader>
+            <CardTitle onClick={handleClick}>{name}</CardTitle>
+            <div className="inline space-x-1 select-none">
+                {tags.map(tag => <Badge key={tag}>{tag}</Badge>)}
+            </div>
+        </CardHeader>
+        <CardContent>
             {summary}
-        </p>
-    </li>
+        </CardContent>
+    </Card>
+
+
+
+    // return <li className={styles.projectDescriptionBox} >
+    //     <h1 className={styles.projectTitle} onClick={handleClick}>
+    //         {name}
+    //     </h1>
+
+    //     <div className={styles.projectTagBox}>
+    //         {projectTagContent}
+    //     </div>
+
+    //     <p className={styles.projectDescription}>
+    //         {summary}
+    //     </p>
+    // </li>
 }
