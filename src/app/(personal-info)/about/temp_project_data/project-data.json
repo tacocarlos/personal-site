@@ -1,0 +1,13 @@
+{
+    "projects": [
+        {
+            "id": "1",
+            "name": "Project 1",
+            "tags": ["C++", "Python"],
+            "summary": "A Project",
+            "description": "projects/p1.md",
+            "visible": true,
+            "featured": true
+        }
+    ]
+}

@@ -11,6 +11,8 @@ model Project {
     id String @default(uuid()) @id
     name String @unique
     tags String[]
+
+    tagline String
     summary String
     description String?
 
@@ -18,7 +20,25 @@ model Project {
     updatedAt DateTime @updatedAt
 
     visible Boolean @default(false)
+    featured Boolean @default(false)
 
     projectLink String?
     sourceLink String?
+}
+
+// Purpose of storing the calculators: 
+//  if one just so happens to be really bad, we can easily disable it from the admin page
+model Calculator {
+    id String @default(uuid()) @id
+    visible Boolean @default(false)
+    name String @unique
+}
+
+model Biography {
+    id String @default(uuid()) @id
+    selected Boolean @default(false)
+    name String @unique
+    content String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

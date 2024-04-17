@@ -11,9 +11,10 @@ type whereObj = {visible?: boolean};
 export async function selectProjects(visibility: Visibility="visible"): Promise<Project[]> {
     revalidatePath("/about");
 
-    let where: whereObj = {};
+    let where: whereObj | undefined = {};
     switch (visibility) {
         case "all":
+            where = undefined;
             break;
         case "visible":
             where.visible = true;
@@ -25,7 +26,11 @@ export async function selectProjects(visibility: Visibility="visible"): Promise<
             return [];
     }
 
-    return db.project.findMany({where: where});
+    if(where !== undefined) {
+        return db.project.findMany({where: where});
+    }
+    
+    return db.project.findMany();
 }
 
 export async function getProjectById(id: string, visible?: true) {
