@@ -63,7 +63,9 @@ function PageComponent({ id }: { id: string }) {
                     {project?.name ?? ''}
                 </h1>
                 <div className="bg-muted p-5">
-                    <MarkdownRenderer markdown={project?.description ?? ''} />
+                    <MarkdownRenderer
+                        markdown={project?.description ?? project.summary}
+                    />
                 </div>
             </main>
         );
