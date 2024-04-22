@@ -12,6 +12,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Project } from '@prisma/client';
 import { fmtDate } from '@/lib/utils';
+import { Sparkle, Star } from 'lucide-react';
 
 export function ProjectVisibility({ visibility }: { visibility: boolean }) {
     const invisibleCN = 'text-red-600 font-semibold';
@@ -36,11 +37,21 @@ export default function ProjectCard({
     createdAt,
     updatedAt,
     visible,
+    featured,
 }: Project) {
+    const featuredStar = featured ? (
+        <Star
+            color="gold"
+            className="fill-yellow-300 animate-pulse duration-[1500ms]"
+        />
+    ) : null;
+
     return (
         <Card className="bg-white" key={id}>
             <CardHeader>
-                <CardTitle>{name}</CardTitle>
+                <CardTitle className="flex">
+                    {name} {featuredStar}
+                </CardTitle>
                 <div className="inline space-x-1 select-none overflow-scroll">
                     {tags.map((tag) => (
                         <Badge key={tag}>{tag}</Badge>

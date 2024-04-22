@@ -4,6 +4,7 @@ import './globals.css';
 import { ComponentProps } from 'react';
 import Link from 'next/link';
 import { cn, isSubpath } from '@/lib/ssrUtils';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -59,7 +60,7 @@ export default function RootLayout({
                 <div className="flex items-center justify-center">
                     {children}
                 </div>
-                <div id="modal-root" />
+                <Toaster />
             </body>
         </html>
     );

@@ -10,6 +10,8 @@ import {
     getStaticFeatured,
 } from './temp_project_data/getStaticData';
 
+('use-dynamic');
+
 async function getFeatured() {
     return (
         (await db.project.findMany({
@@ -47,7 +49,7 @@ export default async function About() {
             <Suspense>
                 <div className="bg-muted rounded-xl">
                     <MarkdownRenderer
-                        markdown={await getStaticBio()}
+                        markdown={await getBio()}
                         className="text-black p-2"
                     />
                 </div>
