@@ -4,13 +4,7 @@ import { Suspense } from 'react';
 import { selectProjects } from './_actions/projects';
 import db from '@/database/db';
 import { Separator } from '@/components/ui/separator';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
-import {
-    getStaticBio,
-    getStaticFeatured,
-} from './temp_project_data/getStaticData';
-
-('use-dynamic');
+import BioRender from './_components/BioRenderer';
 
 async function getFeatured() {
     return (
@@ -31,9 +25,6 @@ async function getBio() {
         where: {
             selected: true,
         },
-        orderBy: {
-            createdAt: 'desc',
-        },
     });
 
     if (result === null) {
@@ -47,16 +38,11 @@ export default async function About() {
     return (
         <main className="mt-5 space-y-5">
             <Suspense>
-                <div className="bg-muted rounded-xl">
-                    <MarkdownRenderer
-                        markdown={await getBio()}
-                        className="text-black p-2"
-                    />
-                </div>
+                <BioRender bio={await getBio()} />
             </Suspense>
             <h2 className="text-3xl text-white">Featured Projects</h2>
             <Suspense>
-                <FeaturedProjects projects={await getStaticFeatured()} />
+                <FeaturedProjects projects={await getFeatured()} />
             </Suspense>
             <Separator className="mt-5 mb-5" />
             <span>All Projects</span>

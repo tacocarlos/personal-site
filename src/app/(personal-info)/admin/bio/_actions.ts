@@ -2,6 +2,7 @@
 
 import db from '@/database/db';
 import { Biography } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 
 export async function getAllBio() {
     return await db.biography.findMany({
@@ -14,18 +15,24 @@ export async function getAllBio() {
 export async function updateBio(
     bio: Omit<Biography, 'createdAt' | 'updatedAt'>
 ) {
-    return db.biography.update({
+    const result = await db.biography.update({
         where: { id: bio.id },
         data: { ...bio },
     });
+
+    revalidatePath('/about');
+    return result;
 }
 
 export async function createBio(
     bio: Omit<Biography, 'id' | 'createdAt' | 'updatedAt'>
 ) {
-    return db.biography.create({
+    const result = await db.biography.create({
         data: { ...bio },
     });
+
+    revalidatePath('/about');
+    return result;
 }
 
 export async function enableBio(bioID: string) {
@@ -49,7 +56,7 @@ export async function setBioAsSelected(bioID: string) {
         },
     });
 
-    return await db.biography.update({
+    const update = await db.biography.update({
         where: {
             id: bioID,
         },
@@ -57,4 +64,7 @@ export async function setBioAsSelected(bioID: string) {
             selected: true,
         },
     });
+
+    revalidatePath('/about');
+    return update;
 }

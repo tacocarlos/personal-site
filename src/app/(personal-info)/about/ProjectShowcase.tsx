@@ -1,10 +1,8 @@
 import ProjectElement from './_components/ProjectElement';
 import { selectProjects } from './_actions/projects';
-import { getStaticVisible } from './temp_project_data/getStaticData';
 
 export default async function ProjectShowcase() {
-    // const projects = (await selectProjects('visible')).sort((a, b) => {
-    const projects = (await getStaticVisible()).sort((a, b) => {
+    const projects = (await selectProjects('visible')).sort((a, b) => {
         if (a.featured && !b.featured) {
             return -1; // place a first
         } else if (a.featured && b.featured) {

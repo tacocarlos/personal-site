@@ -6,7 +6,6 @@ import { Suspense, useEffect, useState, useTransition } from 'react';
 import { getProjectById } from '../../_actions/projects';
 
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-import { getAllProjects, getByID } from '../../temp_project_data/getStaticData';
 import { Skeleton } from '@/components/ui/skeleton';
 
 async function getProject(projectID: string | null) {
@@ -40,7 +39,8 @@ function PageComponent({ id }: { id: string }) {
 
     useEffect(() => {
         // getProject(projectId).then(project => {
-        getByID(id)
+        getProjectById(id)
+            // getByID(id)
             .then((project) => {
                 console.log(`Got project: ${project}`);
                 setProject(project);
