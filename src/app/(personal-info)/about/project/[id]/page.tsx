@@ -38,9 +38,7 @@ function PageComponent({ id }: { id: string }) {
     const [project, setProject] = useState<Project | undefined>(undefined);
 
     useEffect(() => {
-        // getProject(projectId).then(project => {
-        getProjectById(id)
-            // getByID(id)
+        getProject(id)
             .then((project) => {
                 console.log(`Got project: ${project}`);
                 setProject(project);

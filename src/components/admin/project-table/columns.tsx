@@ -15,17 +15,27 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
 import { fmtDate } from '@/lib/utils';
+import { useToast } from '@/components/ui/use-toast';
+import { revalidateAbout } from '@/lib/actions';
+import { setProjectHidden, setProjectVisible } from './_actions';
+import { useRouter } from 'next/navigation';
 
 type RowType = Row<Project>;
-
 type ProjectActionsProps = {
     row: RowType;
 };
+
 function ProjectActions({ row }: ProjectActionsProps) {
+    const { toast } = useToast();
+    const router = useRouter();
+
+    const projectID = row.getValue('id') as string;
+    const isVisible = row.getValue('visible') as boolean;
+
     // use router and search params to redirect to /<action>?id=<id>
     const notVisibleClass = 'text-red-500 font-semibold';
     const visibleClass = 'text-green-500 font-semibold';
-    const visibilityMsg = row.getValue('visible') ? (
+    const visibilityMsg = isVisible ? (
         <span>
             Set as <span className={notVisibleClass}>Not Visible</span>
         </span>
@@ -34,6 +44,47 @@ function ProjectActions({ row }: ProjectActionsProps) {
             Set as <span className={visibleClass}>Visible</span>
         </span>
     );
+
+    function changeVisibility() {
+        if (isVisible) {
+            setProjectHidden(projectID)
+                .then(revalidateAbout)
+                .then(() => {
+                    toast({
+                        title: `Updated ${row.getValue('name')}`,
+                        description: (
+                            <p>
+                                Set
+                                <div className="block bg-gray-400 p-1 rounded font-semibold">
+                                    {projectID}
+                                </div>
+                                to{' '}
+                                <span className={notVisibleClass}>
+                                    not visible
+                                </span>
+                            </p>
+                        ),
+                    });
+                });
+        } else {
+            setProjectVisible(projectID)
+                .then(revalidateAbout)
+                .then(() => {
+                    toast({
+                        title: `Updated ${row.getValue('name')}`,
+                        description: (
+                            <p>
+                                Set
+                                <div className="block bg-gray-400 p-3 rounded font-semibold">
+                                    {projectID}
+                                </div>
+                                to <span className={visibleClass}>visible</span>
+                            </p>
+                        ),
+                    });
+                });
+        }
+    }
 
     return (
         <DropdownMenu>
@@ -47,11 +98,16 @@ function ProjectActions({ row }: ProjectActionsProps) {
                 <DropdownMenuLabel>Project Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator color="black" />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>{visibilityMsg}</DropdownMenuItem>
+                    <DropdownMenuItem onClick={changeVisibility}>
+                        {visibilityMsg}
+                    </DropdownMenuItem>
 
-                    <DropdownMenuItem>Preview Project</DropdownMenuItem>
-
-                    <DropdownMenuItem>Update Project</DropdownMenuItem>
+                    <DropdownMenuItem
+                        onClick={() => {
+                            router.push(`/admin/projects/edit/${projectID}`);
+                        }}>
+                        Edit Project
+                    </DropdownMenuItem>
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />

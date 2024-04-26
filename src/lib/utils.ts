@@ -19,6 +19,16 @@ export function useIsMounted() {
     return isMounted;
 }
 
+export function sigFig(x: number, digits?: number) {
+    digits = digits ?? 5;
+    if (Number.isInteger(x)) {
+        if (x.toString().length < digits) {
+            return x;
+        }
+    }
+    return x.toPrecision(digits);
+}
+
 // includePrefix: if true, return the "https://" or "localhost:PORT" parts
 export function splitPath(path: string, includePrefix: boolean = false) {
     const pathParts = path.split('/');

@@ -1,13 +1,9 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react';
 
-type CalculatorLayoutProps =  {
-    children: ReactNode
-}
+type CalculatorLayoutProps = {
+    children: ReactNode;
+};
 
-export default function CalculatorLayout({children}: CalculatorLayoutProps) {
-    return <section>
-        <h1>{`Carlos' Calculator`}</h1>
-        {children}
-    </section>
-
+export default function CalculatorLayout({ children }: CalculatorLayoutProps) {
+    return <section className="h-full w-full pt-2">{children}</section>;
 }

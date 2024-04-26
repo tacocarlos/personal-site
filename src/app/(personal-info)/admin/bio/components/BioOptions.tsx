@@ -74,7 +74,7 @@ export default function BioOptions({
 
     return (
         <>
-            <div className="flex flex-row space-x-3 justify-start">
+            <div className="flex flex-col lg:flex-row space-y-2  lg:space-x-3 justify-start">
                 <BioSelector state={state} dispatch={reducer} />
                 <Button className="bg-green-600 hover:bg-green-800">
                     New Bio
@@ -85,17 +85,19 @@ export default function BioOptions({
                     Copy Bio
                 </Button>
                 <Button
-                    className="bg-amber-600"
+                    className="bg-amber-600 hover:bg-amber-800 disabled:opacity-0 disabled:w-0 disabled:h-0"
                     disabled={state.selectedBio == null}
                     onClick={handleActivate}>
                     Set as Active Bio
                 </Button>
-                <div className="w-full">
+                <div className="lg:w-full">
                     <AlertDialog>
-                        <AlertDialogTrigger
-                            asChild
-                            className="block ml-auto bg-red-600 hover:bg-red-800">
-                            <Button>Delete Bio</Button>
+                        <AlertDialogTrigger asChild>
+                            <Button
+                                className="lg:block lg:ml-auto w-full  lg:w-auto bg-red-600 hover:bg-red-800 disabled:opacity-0 disabled:w-0 disabled:h-0"
+                                disabled={state.selectedBio == null}>
+                                Delete Bio
+                            </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                             <AlertDialogHeader>

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 import {
     ColumnDef,
     flexRender,
     getCoreRowModel,
-    useReactTable
-} from "@tanstack/react-table"
+    useReactTable,
+} from '@tanstack/react-table';
 
 import {
     Table,
@@ -13,8 +13,8 @@ import {
     TableCell,
     TableHead,
     TableHeader,
-    TableRow
-} from "@/components/ui/table"
+    TableRow,
+} from '@/components/ui/table';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -23,54 +23,62 @@ interface DataTableProps<TData, TValue> {
 
 export default function ProjectTable<TData, TValue>({
     columns,
-    data
+    data,
 }: DataTableProps<TData, TValue>) {
     const table = useReactTable({
-        data, columns, getCoreRowModel: getCoreRowModel()
-    })
+        data,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+    });
 
-    return <div className="rounded-md border bg-secondary">
-        <Table className="w-full md:w-4/5">
-        <TableHeader className="w-full">
-            {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                return (
-                    <TableHead key={header.id}>
-                    {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                        )}
-                    </TableHead>
-                )
-                })}
-            </TableRow>
-            ))}
-        </TableHeader>
-        <TableBody>
-            {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-                <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-                >
-                {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+    // return <div className="rounded-md border bg-secondary">
+    return (
+        <Table className="w-full bg-secondary m-auto rounded-md">
+            <TableHeader className="w-full">
+                {table.getHeaderGroups().map((headerGroup) => (
+                    <TableRow key={headerGroup.id}>
+                        {headerGroup.headers.map((header) => {
+                            return (
+                                <TableHead key={header.id}>
+                                    {header.isPlaceholder
+                                        ? null
+                                        : flexRender(
+                                              header.column.columnDef.header,
+                                              header.getContext()
+                                          )}
+                                </TableHead>
+                            );
+                        })}
+                    </TableRow>
                 ))}
-                </TableRow>
-            ))
-            ) : (
-            <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-                </TableCell>
-            </TableRow>
-            )}
-        </TableBody>
+            </TableHeader>
+            <TableBody>
+                {table.getRowModel().rows?.length ? (
+                    table.getRowModel().rows.map((row) => (
+                        <TableRow
+                            key={row.id}
+                            data-state={row.getIsSelected() && 'selected'}>
+                            {row.getVisibleCells().map((cell) => (
+                                <TableCell key={cell.id}>
+                                    {flexRender(
+                                        cell.column.columnDef.cell,
+                                        cell.getContext()
+                                    )}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    ))
+                ) : (
+                    <TableRow>
+                        <TableCell
+                            colSpan={columns.length}
+                            className="h-24 text-center">
+                            No results.
+                        </TableCell>
+                    </TableRow>
+                )}
+            </TableBody>
         </Table>
-    </div>
+    );
+    // </div>
 }

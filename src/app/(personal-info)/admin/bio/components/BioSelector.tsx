@@ -47,7 +47,7 @@ export default function BioSelector({ state, dispatch }: BioSelectorParams) {
                     role="combobox"
                     aria-controls="bio-selector"
                     aria-expanded={open}
-                    className="justify-between flex w-72 rounded-lg bg-slate-100 hover:bg-white p-2">
+                    className="flex w-72 justify-between rounded-lg bg-slate-100 p-2 hover:bg-white">
                     {selectedBio ? (
                         <>
                             <span className="flex space-x-2">
