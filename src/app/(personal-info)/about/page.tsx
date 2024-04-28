@@ -31,7 +31,7 @@ async function getBio() {
         return "Couldn't Get Bio";
     }
 
-    return result?.content ?? '';
+    return result.content;
 }
 
 export default async function About() {

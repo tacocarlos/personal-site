@@ -66,3 +66,19 @@ export function isSubpath(pathName: string, href: Url) {
 
     return false;
 }
+
+export function range(n: number) {
+    return [...Array(n).keys()];
+}
+
+export function stripLeft(value: string, matchingPrefix: string) {
+    const prefixLen = matchingPrefix.length;
+    let result = value;
+    console.log(`Stripping '${value}'`);
+    while (result.startsWith(matchingPrefix)) {
+        result = result.substring(prefixLen);
+    }
+
+    console.log(`Resolved to: '${result}'`);
+    return result;
+}

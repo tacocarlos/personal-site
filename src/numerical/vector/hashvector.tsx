@@ -1,8 +1,9 @@
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-import { sigFig } from '@/lib/utils';
+import { range, sigFig } from '@/lib/utils';
 import {
     PNormValue,
     Vector,
+    VectorDirection,
     VectorDirectionType,
     VectorNorm,
     VectorNormType,
@@ -247,5 +248,17 @@ export class HashVector implements Vector {
                 .join('') +
             '\\end{pmatrix}'
         );
+    }
+
+    static ones(
+        length: number,
+        direction: VectorDirectionType = VectorDirection.VERTICAL
+    ) {
+        const vect = new HashVector(length, direction, 0);
+        for (let i = 0; i < length; i++) {
+            vect.set(i, 1);
+        }
+
+        return vect;
     }
 }

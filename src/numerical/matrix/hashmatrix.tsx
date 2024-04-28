@@ -1,8 +1,9 @@
 import { Vector } from '@/numerical/vector/vector';
 import { MathFunction } from '../polynomial/mathfunction';
-import { Matrix } from './matrix';
+import { BaseMatrix, Matrix, MatrixIteratorValueType } from './matrix';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-export class HashMatrix implements Matrix {
+// export class HashMatrix implements Matrix {
+export class HashMatrix extends BaseMatrix {
     static randVect(): import('@/numerical/vector/vector').Vector | undefined {
         throw new Error('Method not implemented.');
     }
@@ -11,6 +12,7 @@ export class HashMatrix implements Matrix {
     height: number;
 
     constructor(width: number, height: number) {
+        super();
         this.entries = new Map();
         this.width = width;
         this.height = height;
@@ -30,14 +32,6 @@ export class HashMatrix implements Matrix {
         return copy;
     }
 
-    validIndex(i: number, j: number): Boolean {
-        return i < this.width && j < this.height;
-    }
-
-    private checkValid(i: number, j: number) {
-        if (!this.validIndex(i, j)) throw new Error('Invalid Index');
-    }
-
     get(i: number, j: number): number {
         this.checkValid(i, j);
         return this.entries.get(i)?.get(j) ?? 0;
@@ -45,6 +39,11 @@ export class HashMatrix implements Matrix {
 
     set(i: number, j: number, x: number): void {
         this.checkValid(i, j);
+
+        //! If value is default, don't need to insert
+        if (x === 0) {
+            return;
+        }
 
         let row = this.entries.get(i);
         if (row === undefined) {
@@ -59,6 +58,10 @@ export class HashMatrix implements Matrix {
         return [this.width, this.height];
     }
 
+    getWidth(): number {
+        return this.width;
+    }
+
     apply(f: MathFunction): Matrix {
         const mat = new HashMatrix(this.width, this.height);
         for (let i = 0; i < this.width; i++) {
@@ -67,55 +70,37 @@ export class HashMatrix implements Matrix {
                 mat.set(i, j, value);
             }
         }
-
         return mat;
     }
 
-    prod(m: Matrix): Matrix {
-        return this;
-    }
+    // resizes the current matrix (direcly modifies `this`)
+    resize(this: HashMatrix, n: number, m: number): HashMatrix {
+        const migrateMatrix = (mat: HashMatrix) => {
+            this.width = mat.width;
+            this.height = mat.height;
+            this.entries = mat.entries;
+        };
 
-    prodScalar(this: HashMatrix, x: number): Matrix {
-        return this;
-    }
+        const newMatrix = new HashMatrix(n, m);
+        const generator = this.values();
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < m; j++) {
+                const x = generator.next();
+                if (x.done === true) {
+                    migrateMatrix(newMatrix);
+                    return this;
+                }
 
-    prodVect(this: HashMatrix, v: Vector): Vector {
-        const result: Vector = v.sizeClone();
-        for (let i = 0; i < this.height; i++) {
-            let dot = 0;
-            for (let j = 0; j < this.width; j++) {
-                const a = this.get(i, j);
-                const b = v.get(j);
-                console.log(`matix value: ${a} | (i,j) = (${i}, ${j})`);
-                console.log(`vector value: ${b} | (j) = ${j}`);
-                dot += this.get(i, j) * v.get(j);
+                //! If value is zero, then don't need to store it; when attempted to be read,
+                //! it get(i, j) will return zero anyway
+                if (x.value.value !== 0) {
+                    newMatrix.set(i, j, x.value.value);
+                }
             }
-            console.log(`dot for row ${i}: ${dot}`);
-            console.log('==========================================');
-            result.set(i, dot);
         }
 
-        return result;
-    }
-
-    mult(m: Matrix): Matrix {
-        throw new Error('Method not implemented.');
-    }
-
-    toArray(this: HashMatrix): number[][] {
-        const matrixArray: number[][] = new Array(this.height) as number[][];
-        for (let i = 0; i < this.height; i++) {
-            matrixArray[i] = new Array(this.width) as number[];
-            matrixArray[i] = matrixArray[i].fill(0, this.width);
-        }
-
-        this.entries.forEach((row, i) => {
-            row.forEach((x, j) => {
-                matrixArray[i][j] = x;
-            });
-        });
-
-        return matrixArray;
+        migrateMatrix(newMatrix);
+        return this;
     }
 
     static randMatrix(): HashMatrix {
@@ -139,40 +124,5 @@ export class HashMatrix implements Matrix {
         }
 
         return mat;
-    }
-
-    toComponent(this: HashMatrix): React.ReactNode {
-        const asArray = this.toArray();
-        return (
-            // <table className="flex flex-col space-x-2 space-y-2 rounded-lg bg-muted p-2 ">
-            //     <tbody>
-            //         {asArray.map((row, rowIdx) => (
-            //             <tr key={rowIdx} className="flex space-x-3">
-            //                 {row.map((x, colIdx) => (
-            //                     <td key={colIdx}>{x}</td>
-            //                 ))}
-            //             </tr>
-            //         ))}
-            //     </tbody>
-            // </table>
-            <MarkdownRenderer markdown={'$' + this.toLatex() + '$'} />
-        );
-    }
-
-    toLatex(this: HashMatrix): string {
-        return (
-            '\\begin{pmatrix}' +
-            this.toArray()
-                .map((row, index) => {
-                    if (this.height === index + 1) {
-                        // alert(`Final row: ${index}`);
-                        return row.join(' & ');
-                    } else {
-                        return row.join(' & ') + '\\\\ \n';
-                    }
-                })
-                .join('') +
-            '\\end{pmatrix}'
-        );
     }
 }

@@ -43,3 +43,26 @@ export interface Vector {
     //     upperBound: number
     // ): Vector;
 }
+
+// abstract class BaseVector implements Vector {
+//     abstract orientation(): VectorDirectionType;
+//     abstract length(): number;
+//     abstract get(i: number): number;
+//     abstract set(index: number, value: number): number;
+//     abstract normalize(
+//         normType: VectorNormType,
+//         pValue?: PNormValue | undefined
+//     ): Vector;
+//     abstract magnitude(
+//         normType: VectorNormType,
+//         pValue?: PNormValue | undefined
+//     ): number;
+//     abstract sizeClone(): Vector;
+//     abstract clone(): Vector;
+//     abstract T(): Vector;
+
+//     abstract sub(othe: Vector): Vector;
+//     abstract scale(value: number): Vector;
+//     abstract toComponent(): React.ReactNode;
+//     abstract toLatex(): string;
+// }

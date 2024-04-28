@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import isAuthMatch from './lib/isAuthMatch';
 
 export async function middleware(req: NextRequest) {
+    if (req.nextUrl.basePath.startsWith('/admin')) {
+        return handleAdminAuth(req);
+    }
+}
+
+async function handleAdminAuth(req: NextRequest) {
     if ((await isAdminAuthenticated(req)) === false) {
         const init = {
             status: 401,
@@ -29,5 +35,5 @@ async function isAdminAuthenticated(req: NextRequest) {
 }
 
 export const config = {
-    matcher: '/admin/:path*',
+    matcher: ['/admin/:path*'],
 };
