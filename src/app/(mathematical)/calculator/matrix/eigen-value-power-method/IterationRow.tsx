@@ -51,7 +51,29 @@ function MainIterationRow({ iteration }: { iteration: PowerMainResult }) {
 }
 
 function EndIterationRow({ iteration }: { iteration: PowerEndResult }) {
-    return <div className="flex space-x-3 rounded bg-red-600 p-6"></div>;
+    return (
+        <AccordionItem value={`${iteration.iteration}`}>
+            <AccordionTrigger className="flex w-full text-2xl">
+                <p className="self-start">
+                    Iteration {iteration.iteration} -- Error:{' '}
+                    {sigFig(iteration.epsilon)} (Final)
+                </p>
+            </AccordionTrigger>
+            <AccordionContent>
+                <div className="flex flex-col space-x-2 rounded bg-muted p-6 lg:flex-row">
+                    <p className="text-2xl ">
+                        Iteration {iteration.iteration} (Final)
+                    </p>
+                    <br />
+                    <br />
+                    <div>
+                        <p>EigenVector: </p>
+                        {iteration.eigenVector.toComponent()}
+                    </div>
+                </div>
+            </AccordionContent>
+        </AccordionItem>
+    );
 }
 
 export default function IterationRow({

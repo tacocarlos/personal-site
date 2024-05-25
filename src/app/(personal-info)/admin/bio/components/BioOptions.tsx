@@ -74,7 +74,7 @@ export default function BioOptions({
 
     return (
         <>
-            <div className="flex flex-col lg:flex-row space-y-2  lg:space-x-3 justify-start">
+            <div className="flex flex-col justify-start space-y-2  lg:flex-row lg:space-x-3">
                 <BioSelector state={state} dispatch={reducer} />
                 <Button className="bg-green-600 hover:bg-green-800">
                     New Bio
@@ -85,7 +85,7 @@ export default function BioOptions({
                     Copy Bio
                 </Button>
                 <Button
-                    className="bg-amber-600 hover:bg-amber-800 disabled:opacity-0 disabled:w-0 disabled:h-0"
+                    className="bg-amber-600 hover:bg-amber-800 disabled:h-0 disabled:w-0 disabled:opacity-0"
                     disabled={state.selectedBio == null}
                     onClick={handleActivate}>
                     Set as Active Bio
@@ -94,7 +94,7 @@ export default function BioOptions({
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
                             <Button
-                                className="lg:block lg:ml-auto w-full  lg:w-auto bg-red-600 hover:bg-red-800 disabled:opacity-0 disabled:w-0 disabled:h-0"
+                                className="w-full bg-red-600 hover:bg-red-800  disabled:h-0 disabled:w-0 disabled:opacity-0 lg:ml-auto lg:block lg:w-auto"
                                 disabled={state.selectedBio == null}>
                                 Delete Bio
                             </Button>
@@ -127,6 +127,7 @@ export default function BioOptions({
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction
                                     onClick={() => {
+                                        // TODO: When out of testing, call delete action
                                         console.log('Confirmed Delete');
                                     }}>
                                     Confirm

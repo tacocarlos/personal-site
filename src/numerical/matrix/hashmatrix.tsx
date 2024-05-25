@@ -1,7 +1,7 @@
 import { Vector } from '@/numerical/vector/vector';
 import { MathFunction } from '../polynomial/mathfunction';
 import { BaseMatrix, Matrix, MatrixIteratorValueType } from './matrix';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
 // export class HashMatrix implements Matrix {
 export class HashMatrix extends BaseMatrix {
     static randVect(): import('@/numerical/vector/vector').Vector | undefined {

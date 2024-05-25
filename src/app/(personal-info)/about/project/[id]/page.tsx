@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState, useTransition } from 'react';
 import { getProjectById } from '../../_actions/projects';
 
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
 import { Skeleton } from '@/components/ui/skeleton';
 
 async function getProject(projectID: string | null) {
@@ -16,10 +16,10 @@ async function getProject(projectID: string | null) {
 function PageSkeleton() {
     return (
         <main className="h-96">
-            <Skeleton className="rounded-full h-8 bg-primary" />
+            <Skeleton className="h-8 rounded-full bg-primary" />
             <br />
             <div>
-                <Skeleton className=" bg-primary h-72 rounded-md" />
+                <Skeleton className=" h-72 rounded-md bg-primary" />
             </div>
         </main>
     );

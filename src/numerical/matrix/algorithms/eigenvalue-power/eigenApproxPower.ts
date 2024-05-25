@@ -90,11 +90,6 @@ export function PowerMethod(
     let iter = 1;
     let vector = initialVector;
 
-    console.log('vector copy: ');
-    console.log(initialVector.clone());
-    console.log('size clone: ');
-    console.log(initialVector.sizeClone());
-
     while (iter < options.maxSteps && error >= options.threshold) {
         const step = PowerMain(m, vector, iter);
         if (options.includeAllSteps === true) {
@@ -103,11 +98,10 @@ export function PowerMethod(
 
         vector = step.next;
         error = step.error;
-        console.log(`ITERATION ${iter}`);
-        console.log(step);
         iter++;
     }
 
     steps.push(PowerEnd(m, vector, iter));
+    console.log(steps[steps.length - 1]);
     return steps;
 }

@@ -1,12 +1,13 @@
 import { Textarea } from '@/components/ui/textarea';
 import { Dispatch, useState } from 'react';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
 import { useIsMounted } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Action, BioActions, State } from '../_bioReducer';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { updateBio } from '../_actions';
+import MarkdownEditor from '@/components/markdown/MarkdownEditor';
 
 export default function BioEditor({
     state,
@@ -51,35 +52,17 @@ export default function BioEditor({
     };
 
     return (
-        <Tabs
-            defaultValue="source"
-            className="w-full bg-slate-600 p-2 rounded-md">
-            <TabsList className="flex md:w-1/4">
-                <TabsTrigger value="source" className="md:w-1/3">
-                    Edit Bio
-                </TabsTrigger>
-                <TabsTrigger value="preview" className="md:w-1/3">
-                    Preview Bio
-                </TabsTrigger>
+        <MarkdownEditor
+            content={bio}
+            handleContentChange={(newContent) => handleChange(newContent)}
+            extraTabListButtons={
                 <Button
                     disabled={!differentContent}
-                    className="md:w-1/3 bg-green-600 disabled:bg-slate-700 transition-colors duration-500 h-8"
+                    className="h-8 bg-green-600 transition-colors duration-500 disabled:bg-slate-700"
                     onClick={applyChanges}>
                     Apply Changes
                 </Button>
-            </TabsList>
-            <TabsContent value="source">
-                <Textarea
-                    onChange={(e) => {
-                        handleChange(e.currentTarget.value);
-                    }}
-                    value={bio}
-                    className="h-[100px] md:h-[500px]"
-                />
-            </TabsContent>
-            <TabsContent value="preview">
-                <MarkdownRenderer markdown={bio} className="bg-white p-2" />
-            </TabsContent>
-        </Tabs>
+            }
+        />
     );
 }

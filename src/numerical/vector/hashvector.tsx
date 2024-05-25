@@ -1,4 +1,4 @@
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
 import { range, sigFig } from '@/lib/utils';
 import {
     PNormValue,

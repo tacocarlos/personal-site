@@ -82,7 +82,9 @@ export default function EigenCalculator() {
                     toast({ description: 'Running power method...' });
                     try {
                         const steps = PowerMethod(matrix, initialVector);
-                        const finalStep = steps.pop() as PowerEndResult;
+                        const finalStep = steps[
+                            steps.length - 1
+                        ] as PowerEndResult;
                         console.log(finalStep);
                         setSteps(steps);
                         setEigenValue(finalStep.eigenValue);
@@ -98,7 +100,8 @@ export default function EigenCalculator() {
                                     : '[unknown error]'),
                         });
                     }
-                    // setEigenVector(finalStep.eigenVector as HashVector);
+
+                    steps.length;
                 }}>
                 Run Power Method
             </Button>
@@ -106,7 +109,6 @@ export default function EigenCalculator() {
                 onClick={() => {
                     setSteps([]);
                     setEigenValue(undefined);
-                    // setEigenVector(undefined);
                 }}>
                 Reset
             </Button>
@@ -118,6 +120,11 @@ export default function EigenCalculator() {
             Approximated EigenValue: {eigenValue ?? 'not computed\n'}
             <br />
             <IterationViewer iterations={steps} />
+            <br />
+            <embed
+                src="https://www.sciencedirect.com/topics/mathematics/power-method"
+                className=" h-96 w-full"
+            />
         </div>
     );
 }

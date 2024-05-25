@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { Project } from '@prisma/client';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
 import { Skeleton } from '@/components/ui/skeleton';
 
 import { getProjectById } from '../../../_actions/projects';
@@ -12,10 +12,10 @@ import { getProjectById } from '../../../_actions/projects';
 function ProjectPopoverSkeleton() {
     return (
         <main className="h-96">
-            <Skeleton className="rounded-full h-8 bg-primary" />
+            <Skeleton className="h-8 rounded-full bg-primary" />
             <br />
             <div>
-                <Skeleton className="bg-primary h-72 rounded-md" />
+                <Skeleton className="h-72 rounded-md bg-primary" />
             </div>
         </main>
     );
@@ -61,7 +61,7 @@ export default function ProjectPopover({ params }: { params: { id: string } }) {
                 )}
                 <br />
                 <button
-                    className="rounded-xl bg-primary text-primary-foreground p-2"
+                    className="rounded-xl bg-primary p-2 text-primary-foreground"
                     onClick={dismiss}>
                     Close Project
                 </button>

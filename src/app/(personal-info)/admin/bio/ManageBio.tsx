@@ -13,7 +13,7 @@ import BioOptions from './components/BioOptions';
 import { unknown } from 'zod';
 
 function ManageBioSkeleton() {
-    return <Skeleton className="w-1/2 h-96" />;
+    return <Skeleton className="h-96 w-1/2" />;
 }
 
 function BioSelection({
@@ -47,8 +47,8 @@ export default function ManageBio() {
             dispatch({
                 kind: BioActions.ReadBios,
                 params: {
-                    // selectedBio: selectedBio,
-                    selectedBio: undefined,
+                    selectedBio: selectedBio,
+                    // selectedBio: undefined,
                     bios: bios,
                 },
             });
@@ -64,7 +64,7 @@ export default function ManageBio() {
      */
 
     let content = (
-        <div className="w-3/4 m-auto" id="bio-container">
+        <div className="m-auto w-3/4" id="bio-container">
             <BioOptions state={state} reducer={dispatch} />
         </div>
     );

@@ -1,6 +1,6 @@
 'use client';
 
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
 import {
     Accordion,
     AccordionContent,
@@ -45,16 +45,16 @@ export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
             <AccordionItem value={project.id} key={project.id}>
                 <AccordionTrigger>
                     <div>
-                        <div className="text-2xl text-left">
+                        <div className="text-left text-2xl">
                             <h2>{project.name}</h2>
                         </div>
                         <Separator className="my-1 mb-2" />
                         <div>
-                            <ul className="block-inline text-start space-x-1">
+                            <ul className="block-inline space-x-1 text-start">
                                 {project.tags.map((tag) => {
                                     return (
                                         <Badge
-                                            className="w-fit bg-black border-white"
+                                            className="w-fit border-white bg-black"
                                             key={tag}>
                                             {tag}
                                         </Badge>
@@ -93,7 +93,7 @@ export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
     });
 
     return (
-        <div className="p-2 bg-primary text-primary-foreground rounded-xl">
+        <div className="rounded-xl bg-primary p-2 text-primary-foreground">
             <Accordion type="multiple">{accordionItems}</Accordion>
         </div>
     );

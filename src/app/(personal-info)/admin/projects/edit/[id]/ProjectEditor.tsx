@@ -7,7 +7,8 @@ import {
 } from '@/components/ui/card';
 import { State, Action } from './projectActions';
 import { Dispatch, useState } from 'react';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
+import MarkdownEditor from '@/components/markdown/MarkdownEditor';
 
 export default function ProjectEditor({
     state,
@@ -29,18 +30,16 @@ export default function ProjectEditor({
     );
     const [projectLink, setProjectLink] = useState(currentProject?.projectLink);
 
+    const handleDescriptionChange = (newDesc: string) => {
+        setDescription(newDesc);
+    };
+
     return (
-        <div className="bg-yellow-300 text-black">
-            This is the editor
-            {/* <Card>
-                <CardHeader>
-                    <CardTitle>{name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <MarkdownRenderer markdown={description} />
-                </CardContent>
-                <CardFooter>{sourceLink}</CardFooter>
-            </Card> */}
+        <div>
+            <MarkdownEditor
+                content={description}
+                handleContentChange={handleDescriptionChange}
+            />
         </div>
     );
 }

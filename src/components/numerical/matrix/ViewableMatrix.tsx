@@ -1,6 +1,6 @@
 import { Matrix } from '@/numerical/matrix/matrix';
 import { matrixToLatex } from './matrixUtil';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
 
 // TODO: decide whether to render it as markdown or as latex; was having some issues with react-katex but forgot what they were
 

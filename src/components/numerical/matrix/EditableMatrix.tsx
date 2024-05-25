@@ -72,26 +72,32 @@ export default function EditableMatrix({
     };
 
     return (
-        <div className="my-5 rounded bg-blue-600 p-2 ">
+        <div className="my-5 w-full rounded-l bg-blue-700 p-2 ">
             <form
                 onSubmit={(event) => {
                     return handleSubmit(parseMatrixSubmit(event));
                 }}>
                 <div className="flex space-x-3">
-                    <span>
-                        <Label>Matrix Height: </Label>
+                    <span className="pp-1 rounded-xl bg-slate-600">
+                        <Label className="px-2 text-white">
+                            Matrix Height:{' '}
+                        </Label>
                         <Input
+                            className="rounded-t-none"
                             type="number"
                             onChange={handleHeightChange}
                             value={height}
                         />
                     </span>
-                    <span>
-                        <Label>Matrix Width: </Label>
+                    <span className="pp-1 rounded-xl bg-slate-600">
+                        <Label className="px-2 text-white">
+                            Matrix Width:{' '}
+                        </Label>
                         <Input
                             type="number"
                             onChange={handleWidthChange}
                             value={width}
+                            className="rounded-t-none"
                         />
                     </span>
                 </div>
@@ -114,6 +120,7 @@ export default function EditableMatrix({
                         );
                     })}
                 </div>
+                <br />
                 <Button type="submit">Set Matrix</Button>
             </form>
         </div>
