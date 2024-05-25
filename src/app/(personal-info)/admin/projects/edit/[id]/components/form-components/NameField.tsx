@@ -1,6 +1,3 @@
-import { Dispatch } from 'react';
-import { Action, State } from '../../projectActions';
-import { formType } from '../EditProjectForm';
 import {
     FormField,
     FormLabel,
@@ -9,33 +6,20 @@ import {
     FormDescription,
     FormMessage,
 } from '@/components/ui/form';
-import { FormInput } from 'lucide-react';
+
 import { Input } from '@/components/ui/input';
 import { ControllerRenderProps } from 'react-hook-form';
+import { FormItemProps } from './FormItemProps';
+import { FormSchemaType } from './FormSchema';
 
-type NameFieldProps = {
-    form: formType;
-    state: State;
-    reducer: Dispatch<Action>;
-};
-
-type FieldProps = ControllerRenderProps<
-    {
-        name: string;
-        tags: [string, ...string[]];
-        summary: string;
-        description: string | null;
-        visible: boolean;
-    },
-    'name'
->;
+type FieldProps = ControllerRenderProps<FormSchemaType, 'name'>;
 
 function NameFieldRender({
     form,
     state,
     reducer,
     field,
-}: NameFieldProps & { field: FieldProps }) {
+}: FormItemProps & { field: FieldProps }) {
     return (
         <FormItem>
             <FormLabel>Project Name</FormLabel>
@@ -47,11 +31,7 @@ function NameFieldRender({
     );
 }
 
-export default function NameField(props: {
-    form: formType;
-    state: State;
-    reducer: Dispatch<Action>;
-}) {
+export default function NameField(props: FormItemProps) {
     return (
         <FormField
             control={props.form.control}

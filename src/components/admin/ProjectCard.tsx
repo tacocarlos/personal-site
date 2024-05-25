@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Project } from '@prisma/client';
 import { fmtDate } from '@/lib/utils';
 import { Sparkle, Star } from 'lucide-react';
+import Link from 'next/link';
 
 export function ProjectVisibility({ visibility }: { visibility: boolean }) {
     const invisibleCN = 'text-red-600 font-semibold';
@@ -42,17 +43,19 @@ export default function ProjectCard({
     const featuredStar = featured ? (
         <Star
             color="gold"
-            className="fill-yellow-300 animate-pulse duration-[1500ms]"
+            className="duration-[1500ms] animate-pulse fill-yellow-300"
         />
     ) : null;
 
     return (
         <Card className="bg-white" key={id}>
             <CardHeader>
-                <CardTitle className="flex">
-                    {name} {featuredStar}
+                <CardTitle>
+                    <Link href={`/admin/projects/edit/${id}`}>
+                        {name} {featuredStar}
+                    </Link>
                 </CardTitle>
-                <div className="inline space-x-1 select-none overflow-scroll">
+                <div className="inline select-none space-x-1 overflow-scroll">
                     {tags.map((tag) => (
                         <Badge key={tag}>{tag}</Badge>
                     ))}

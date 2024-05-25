@@ -15,22 +15,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import NameField from './form-components/NameField';
-
-const formSchema = z.object({
-    name: z.string().min(10).max(50),
-    tags: z
-        .string()
-        .min(1)
-        .max(10)
-        .array()
-        .nonempty({ message: 'Need at least one tag!' }),
-    summary: z.string().min(10).max(100),
-    description: z.string().min(10).nullable(),
-    visible: z.boolean(),
-});
-
-export type formSchemaType = z.infer<typeof formSchema>;
-export type formType = UseFormReturn<formSchemaType, any, undefined>;
+import { FormSchemaType, FormSchema } from './form-components/FormSchema';
+import TagField from './form-components/TagField';
+import SummaryField from './form-components/SummaryField';
 
 export default function EditProjectForm({
     state,
@@ -39,11 +26,29 @@ export default function EditProjectForm({
     state: State;
     reducer: Dispatch<Action>;
 }) {
-    const form = useForm<formSchemaType>({
-        resolver: zodResolver(formSchema),
+    let defaultValues: FormSchemaType | undefined = undefined;
+    if (state.selectedProject !== undefined) {
+        const project = state.selectedProject;
+        const tagObjArray = project.tags.map((tag) => {
+            return {
+                tag: tag,
+            };
+        });
+        defaultValues = {
+            name: project.name,
+            tags: tagObjArray,
+            summary: project.summary,
+            description: project.description,
+            visible: project.visible,
+        };
+    }
+
+    const form = useForm<FormSchemaType>({
+        resolver: zodResolver(FormSchema),
+        defaultValues: defaultValues,
     });
 
-    function onSubmit(values: formSchemaType) {
+    function onSubmit(values: FormSchemaType) {
         console.log(values);
     }
 
@@ -55,6 +60,9 @@ export default function EditProjectForm({
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <NameField form={form} state={state} reducer={reducer} />
+                <TagField form={form} state={state} reducer={reducer} />
+                <SummaryField form={form} state={state} reducer={reducer} />
+                <Button type="submit">Submit</Button>
             </form>
         </Form>
     );
