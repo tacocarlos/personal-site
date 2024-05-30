@@ -18,7 +18,7 @@ import {
 // import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 

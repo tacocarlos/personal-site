@@ -4,6 +4,4 @@ import { Dispatch } from 'react';
 
 export type FormItemProps = {
     form: FormType;
-    state: State;
-    reducer: Dispatch<Action>;
 };

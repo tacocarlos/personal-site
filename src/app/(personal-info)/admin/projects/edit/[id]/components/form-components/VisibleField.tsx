@@ -1,45 +1,41 @@
 import { ControllerRenderProps } from 'react-hook-form';
 import { FormItemProps } from './FormItemProps';
 import { FormSchemaType } from './FormSchema';
-
 import {
     FormControl,
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
 } from '@/components/ui/form';
+import { Checkbox } from '@/components/ui/checkbox';
+import CheckboxField from './CheckboxField';
 
-import { Input } from '@/components/ui/input';
+type FieldProps = ControllerRenderProps<FormSchemaType, 'visible'>;
 
-const SummaryFieldName = 'summary' as const;
-type FieldProps = ControllerRenderProps<
-    FormSchemaType,
-    typeof SummaryFieldName
->;
-
-function SummaryFieldRender({
+function VisibleFieldRender({
     form,
     field,
 }: FormItemProps & { field: FieldProps }) {
     return (
         <FormItem>
-            <FormLabel>Project Summary</FormLabel>
             <FormControl>
-                <Input {...field} placeholder="Project Summary" />
+                <CheckboxField
+                    field={field}
+                    id="visible"
+                    label="Make Project Visible"
+                />
             </FormControl>
-            <FormMessage />
         </FormItem>
     );
 }
 
-export default function SummaryField(props: FormItemProps) {
+export default function VisibleField(props: FormItemProps) {
     return (
         <FormField
             control={props.form.control}
-            name={SummaryFieldName}
+            name="visible"
             render={({ field }) => (
-                <SummaryFieldRender {...props} field={field} />
+                <VisibleFieldRender {...props} field={field} />
             )}
         />
     );

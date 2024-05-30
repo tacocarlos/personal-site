@@ -1,7 +1,7 @@
 'use server';
 
 import db from '@/database/db';
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 import { revalidatePath } from 'next/cache';
 
 export async function setProjectVisible(projectID: string) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState, useTransition } from 'react';
 import { getProjectById } from '../../_actions/projects';

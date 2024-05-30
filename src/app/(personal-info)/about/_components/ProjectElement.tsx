@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/card';
 
 import { Badge } from '@/components/ui/badge';
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 
@@ -34,10 +34,10 @@ export default function ProjectElement({
 
     if (sourceLink) {
         footer = (
-            <div className="flex bg-primary p-0.5 rounded-md">
+            <div className="flex rounded-md bg-primary p-0.5">
                 <a
                     href={sourceLink}
-                    className=" text-white rounded-sm hover:bg-blue-400 hover:text-black w-full">
+                    className=" w-full rounded-sm text-white hover:bg-blue-400 hover:text-black">
                     Source Code Link
                 </a>
             </div>
@@ -49,7 +49,7 @@ export default function ProjectElement({
             <>
                 {footer}
                 <Separator />
-                <div className="bg-slate-600 p-1 rounded-md">
+                <div className="rounded-md bg-slate-600 p-1">
                     <a href={projectLink}>Project Site Link</a>
                 </div>
             </>
@@ -57,7 +57,7 @@ export default function ProjectElement({
     }
 
     return (
-        <Card className="bg-white max-w-screen-sm ">
+        <Card className="max-w-screen-sm bg-white ">
             <CardHeader>
                 <CardTitle>
                     {/* <a
@@ -71,7 +71,7 @@ export default function ProjectElement({
                 </CardTitle>
                 <CardDescription>
                     {tagline ? <div className="mb-1">{tagline}</div> : null}
-                    <div className="inline space-x-1 select-none">
+                    <div className="inline select-none space-x-1">
                         {tags.map((tag) => (
                             <Badge key={tag}>{tag}</Badge>
                         ))}

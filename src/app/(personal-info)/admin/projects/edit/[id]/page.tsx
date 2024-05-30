@@ -4,7 +4,7 @@ import { useEffect, useReducer } from 'react';
 import ProjectEditor from './ProjectEditor';
 import { ProjectActions, projectReducer } from './projectActions';
 import { getProjectById } from './_actions';
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import EditProjectForm from './components/EditProjectForm';
@@ -52,11 +52,12 @@ export default function ProjectEditPage({
 
     return (
         <div className="m-auto block w-3/5 rounded bg-white p-2 text-2xl text-black">
-            <span className="text-3xl" role="heading" aria-level={2}>
-                Project ID: <span>{state.selectedProject?.id}</span>
-            </span>
-            <br />
             <span>Current Project Name: {state.selectedProject?.name}</span>
+            <br />
+            <span className="text-[1.1rem] font-medium">
+                Project ID:{' '}
+                <span className="">{state.selectedProject?.id}</span>
+            </span>
             <br />
             <EditProjectForm state={state} reducer={reducer} />
         </div>

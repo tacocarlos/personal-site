@@ -1,4 +1,4 @@
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 
 export type State = {
     selectedProject?: Project;
@@ -53,7 +53,10 @@ export function projectReducer(state: State, action: Action): State {
 }
 
 function updateProject(prevState: State, params: UpdateParams): State {
-    return prevState;
+    const newProject = params.selectedProject;
+    return {
+        selectedProject: newProject,
+    };
 }
 
 function selectProject(prevState: State, params: UpdateParams): State {

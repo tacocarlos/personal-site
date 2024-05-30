@@ -1,36 +1,22 @@
-import { ProjectTag } from '@/app/types/Tag';
-import { ItemID } from '@data/ItemID';
+import { Project as ProjectSchema } from '@prisma/client';
 
-export type Project = {
-    id: string;
-    name: string;
-    tags: string[];
-    summary: string;
-    description: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-    visible: boolean;
-};
+export type Project = ProjectSchema;
+export type ProjectData = Omit<Project, 'id' | 'createdAt' | 'updatedAt'>;
 
 export function createProject(
-    name: string,
-    tags: string[],
-    summary: string,
-    description?: string,
-    id?: ItemID
+    project: Project & { id?: string; createdAt?: Date; updatedAt?: Date }
 ): Project {
-    if (id === undefined) {
-        id = crypto.randomUUID();
+    if (project.id === undefined) {
+        project.id = crypto.randomUUID();
+    }
+    if (project.createdAt === undefined) {
+        project.createdAt = new Date();
+    }
+    if (project.updatedAt === undefined) {
+        project.updatedAt = new Date();
     }
 
     return {
-        id: id,
-        name: name,
-        tags: tags,
-        summary: summary,
-        description: description ?? null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        visible: true,
+        ...project,
     };
 }

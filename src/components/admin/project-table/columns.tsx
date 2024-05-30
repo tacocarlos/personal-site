@@ -1,6 +1,6 @@
 'use client';
 
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { ProjectVisibility } from '../ProjectCard';
@@ -55,7 +55,7 @@ function ProjectActions({ row }: ProjectActionsProps) {
                         description: (
                             <p>
                                 Set
-                                <div className="block bg-gray-400 p-1 rounded font-semibold">
+                                <div className="block rounded bg-gray-400 p-1 font-semibold">
                                     {projectID}
                                 </div>
                                 to{' '}
@@ -75,7 +75,7 @@ function ProjectActions({ row }: ProjectActionsProps) {
                         description: (
                             <p>
                                 Set
-                                <div className="block bg-gray-400 p-3 rounded font-semibold">
+                                <div className="block rounded bg-gray-400 p-3 font-semibold">
                                     {projectID}
                                 </div>
                                 to <span className={visibleClass}>visible</span>
@@ -113,7 +113,7 @@ function ProjectActions({ row }: ProjectActionsProps) {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuGroup>
-                    <DropdownMenuItem className="text-red-600 font-semibold">
+                    <DropdownMenuItem className="font-semibold text-red-600">
                         Delete Project
                     </DropdownMenuItem>
                 </DropdownMenuGroup>

@@ -1,4 +1,4 @@
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 import { selectProjects } from '../about/_actions/projects';
 import ProjectCard from '@/components/admin/ProjectCard';
 

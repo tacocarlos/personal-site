@@ -16,15 +16,13 @@ type FieldProps = ControllerRenderProps<FormSchemaType, 'name'>;
 
 function NameFieldRender({
     form,
-    state,
-    reducer,
     field,
 }: FormItemProps & { field: FieldProps }) {
     return (
         <FormItem>
             <FormLabel>Project Name</FormLabel>
             <FormControl>
-                <Input placeholder={state.selectedProject?.name} {...field} />
+                <Input placeholder={'Project Name'} {...field} />
             </FormControl>
             <FormMessage />
         </FormItem>

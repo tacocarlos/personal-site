@@ -82,3 +82,7 @@ export function stripLeft(value: string, matchingPrefix: string) {
     console.log(`Resolved to: '${result}'`);
     return result;
 }
+
+export function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}

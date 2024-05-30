@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import { Project } from '@prisma/client';
+import { Project } from '@data/Project';
 import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
 import { Skeleton } from '@/components/ui/skeleton';
 

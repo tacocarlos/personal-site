@@ -16,21 +16,15 @@ type FieldProps = ControllerRenderProps<FormSchemaType, typeof TagFieldName>;
 
 function TagFieldRender({
     form,
-    state,
-    reducer,
     field,
 }: FormItemProps & { field: FieldProps }) {
     const control = form.control;
-    const { selectedProject } = state;
-
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, move } = useFieldArray({
         control,
         name: 'tags',
     });
 
     const fieldCount = fields.length;
-
-    if (selectedProject === undefined) return null;
     return (
         <FormItem>
             <FormLabel>Project Tags</FormLabel>
@@ -44,10 +38,26 @@ function TagFieldRender({
                     <ul className="space-y-1">
                         {fields.map((field, index) => {
                             return (
-                                <Input
-                                    key={field.id}
-                                    {...form.register(`tags.${index}.tag`)}
-                                />
+                                <div key={field.id} className="flex space-x-2">
+                                    <Input
+                                        className="w-60"
+                                        {...form.register(`tags.${index}.tag`)}
+                                    />
+                                    <Button
+                                        type="button"
+                                        onClick={() => {
+                                            move(index, index - 1);
+                                        }}>
+                                        Move Up
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        onClick={() => {
+                                            remove(index);
+                                        }}>
+                                        Remove Tag
+                                    </Button>
+                                </div>
                             );
                         })}
                     </ul>

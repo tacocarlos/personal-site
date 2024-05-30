@@ -11,7 +11,7 @@ async function getFeatured() {
         (await db.project.findMany({
             where: {
                 visible: true,
-                // featured: true
+                featured: true,
             },
         })) ?? []
     );
@@ -44,7 +44,7 @@ export default async function About() {
             <Suspense>
                 <FeaturedProjects projects={await getFeatured()} />
             </Suspense>
-            <Separator className="mt-5 mb-5" />
+            <Separator className="mb-5 mt-5" />
             <span>All Projects</span>
             <Suspense>
                 <ProjectShowcase />
